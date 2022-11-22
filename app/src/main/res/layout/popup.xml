@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#f5f5dc">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How to interpret odds:"
+        android:textStyle="bold"
+        android:padding="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="If an odds amount is positive (+) and should the bet win, the odds amount is how much you win for every $100 you wager. This means the bet is an underdog"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Ex: Wagering $100 on a bet with odds +250 nets a $250 reward on top of retaining the original $100 wager"
+        android:textStyle="italic"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="If an odds amount is negative (-) and should that bet win, the odds amount is how much you need to wager in order to win $100. This means the bet is favored"
+        android:padding="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textStyle="italic"
+        android:text="Ex: Wagering $175 on a bet with odds -175 nets a $100 reward on top of retaining the original $175 wager"
+        />
+
+
+
+</LinearLayout>

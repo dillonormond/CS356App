@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
+    >
+
+    <androidx.gridlayout.widget.GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints"
+        android:background="@animator/border"
+        android:layout_marginVertical="5dp">
+
+        <TextView
+            android:layout_margin="10dp"
+            android:id="@+id/amountBetRec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="amountbet"
+            android:textSize="25dp"
+            app:layout_column="0"
+            app:layout_row="0" />
+
+        <TextView
+            android:id="@+id/teamTakenRec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="team taken"
+            android:textSize="25dp"
+            android:layout_margin="10dp"
+            android:background="#66E581"
+            app:layout_column="0"
+            app:layout_row="1" />
+
+        <TextView
+            android:layout_margin="10dp"
+            android:id="@+id/teamAvoidedRec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="other"
+            android:textSize="25dp"
+            android:background="#F57676"
+            app:layout_column="1"
+            app:layout_row="1" />
+
+        <TextView
+            android:layout_margin="10dp"
+            android:id="@+id/bookmakerRec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="bookmaker"
+            android:textSize="25dp"
+            app:layout_column="1"
+            app:layout_row="0" />
+
+        <TextView
+            android:layout_margin="10dp"
+            android:id="@+id/teamAvoidedOddsRec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="other"
+            android:textSize="25dp"
+            android:background="#F57676"
+            app:layout_column="1"
+            app:layout_row="2" />
+
+        <TextView
+            android:layout_margin="10dp"
+            android:id="@+id/teamTakenOddsRec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="team taken"
+            android:textSize="25dp"
+            android:background="#66E581"
+            app:layout_column="0"
+            app:layout_row="2" />
+    </androidx.gridlayout.widget.GridLayout>
+</LinearLayout>

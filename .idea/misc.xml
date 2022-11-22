@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/drawable-v24/layout_betform.xml" value="0.3485" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/drawable/rounded_edittext.xml" value="0.3485" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/activity_bet_home_page.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/activity_home_page.xml" value="0.5" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/activity_main_page.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/fragment_bet.xml" value="0.5" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/fragment_login_fragment.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/fragment_profile.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/layout.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/list_items.xml" value="0.47880299251870323" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/popup.xml" value="0.3210702341137124" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/rounded_edittext.xml" value="0.5401041666666667" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/menu/bottom_nav_menu.xml" value="0.5541666666666667" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
