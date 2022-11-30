@@ -51,7 +51,8 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyView
         String teamAvoided = betList.get(position).teamAvoided;
         String teamTakenOdds = Integer.toString(betList.get(position).teamTakenOdds);
         String teamAvoidedOdds = Integer.toString(betList.get(position).teamAvoidedOdds);
-        String bookmaker = betList.get(position).bookmaker;
+        String winnings = Integer.toString(betList.get(position).toWin);
+
         String amountBet = Integer.toString(betList.get(position).amountBet);
 
         if(!teamTakenOdds.contains("-")){
@@ -63,8 +64,8 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyView
 
         holder.teamTakenText.setText(teamTaken);
         holder.teamAvoidedText.setText(teamAvoided);
-        holder.bookmakerText.setText(bookmaker);
-        holder.amountText.setText("$" + amountBet);
+        holder.bookmakerText.setText("To Win: $" + winnings);
+        holder.amountText.setText("Wagered: $" + amountBet);
         holder.teamTakenOddsText.setText(teamTakenOdds);
         holder.teamAvoidedOddsText.setText(teamAvoidedOdds);
 

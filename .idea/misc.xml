@@ -4,12 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/drawable-v24/layout_betform.xml" value="0.3485" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/drawable/customborderdark.xml" value="0.2875" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/drawable/customeborder.xml" value="0.2875" />
         <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/drawable/rounded_edittext.xml" value="0.3485" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout-land/fragment_bet.xml" value="0.4691358024691358" />
         <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/activity_bet_home_page.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/activity_home_page.xml" value="0.5" />
         <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/activity_main_page.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/fragment_bet.xml" value="0.5" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/customborderlight.xml" value="0.2994791666666667" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/customborderred.xml" value="0.5401041666666667" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/customeborder.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/fragment_bet.xml" value="0.33" />
         <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/fragment_login_fragment.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/fragment_profile.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/cecsr/AndroidStudioProjects/CS356/app/src/main/res/layout/layout.xml" value="0.5541666666666667" />

@@ -1,11 +1,15 @@
 package com.example.cs356;
 
 import android.app.AlertDialog;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.provider.ContactsContract;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +23,9 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationBarView;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,58 +84,562 @@ public class BetFragment extends Fragment implements AdapterView.OnItemSelectedL
         return inflater.inflate(R.layout.fragment_bet, container, false);
     }
 
+
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        Spinner bookmakers = getView().findViewById(R.id.bookmakers);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.bookmakers, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        bookmakers.setAdapter(adapter);
-        bookmakers.setOnItemSelectedListener(this);
-        EditText teamTaken = getView().findViewById(R.id.teamTaken);
-        EditText teamAvoided = getView().findViewById(R.id.teamAvoided);
-        EditText teamTakenOdds = getView().findViewById(R.id.teamTakenOdds);
-        EditText teamAvoidedOdds = getView().findViewById(R.id.teamAvoidedOdds);
-        EditText amountBet = getView().findViewById(R.id.amountBet);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
+        TextView topLeftHomeTeam = getView().findViewById(R.id.topLeftHomeTeam);
+        TextView topLeftHomeOdds = getView().findViewById(R.id.topLeftHomeOdds);
+        TextView topLeftAwayTeam = getView().findViewById(R.id.topLeftAwayTeam);
+        TextView topLeftAwayOdds = getView().findViewById(R.id.topLeftAwayOdds);
+        TextView topLeftWinnings = getView().findViewById(R.id.topLeftWinnings);
+        EditText topLeftAmount = getView().findViewById(R.id.topLeftAmount);
+
+        TextView topRightHomeTeam = getView().findViewById(R.id.topRightHomeTeam);
+        TextView topRightHomeOdds = getView().findViewById(R.id.topRightHomeOdds);
+        TextView topRightAwayTeam = getView().findViewById(R.id.topRightAwayTeam);
+        TextView topRightAwayOdds = getView().findViewById(R.id.topRightAwayOdds);
+        TextView topRightWinnings = getView().findViewById(R.id.topRightWinnings);
+        EditText topRightAmount = getView().findViewById(R.id.topRightAmount);
+
+        TextView bottomLeftHomeTeam = getView().findViewById(R.id.bottomLeftHomeTeam);
+        TextView bottomLeftHomeOdds = getView().findViewById(R.id.bottomLeftHomeOdds);
+        TextView bottomLeftAwayTeam = getView().findViewById(R.id.bottomLeftAwayTeam);
+        TextView bottomLeftAwayOdds = getView().findViewById(R.id.bottomLeftAwayOdds);
+        TextView bottomLeftWinnings = getView().findViewById(R.id.bottomLeftWinnings);
+        EditText bottomLeftAmount = getView().findViewById(R.id.bottomLeftAmount);
+
+        TextView bottomRightHomeTeam = getView().findViewById(R.id.bottomRightHomeTeam);
+        TextView bottomRightHomeOdds = getView().findViewById(R.id.bottomRightHomeOdds);
+        TextView bottomRightAwayTeam = getView().findViewById(R.id.bottomRightAwayTeam);
+        TextView bottomRightAwayOdds = getView().findViewById(R.id.bottomRightAwayOdds);
+        TextView bottomRightWinnings = getView().findViewById(R.id.bottomRightWinnings);
+        EditText bottomRightAmount = getView().findViewById(R.id.bottomRightAmount);
 
         MaterialButton submit = getView().findViewById(R.id.submitbutton);
-        ImageView topInfoButton = getView().findViewById(R.id.topInfoButton);
-        ImageView bottomInfoButton = getView().findViewById(R.id.bottomInfoButton);
+
+        ImageView infoButton = getView().findViewById(R.id.topLeftInfo);
+
+
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createOddsPopup();
+            }
+        });
+
+
+
+        topLeftAwayTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                topLeftAwayTeam.setBackgroundResource(R.drawable.customborderdark);
+                topLeftAwayTeam.setPadding(14,14,14,14);
+                topLeftHomeTeam.setBackgroundResource(R.drawable.customborderred);
+                topLeftHomeTeam.setPadding(14,14,14,14);
+                DataCache cache = DataCache.getInstance();
+                cache.topLeft = "away";
+            }
+        });
+
+        topLeftHomeTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                topLeftAwayTeam.setBackgroundResource(R.drawable.customborderred);
+                topLeftAwayTeam.setPadding(14,14,14,14);
+                topLeftHomeTeam.setBackgroundResource(R.drawable.customborderdark);
+                topLeftHomeTeam.setPadding(14,14,14,14);
+                DataCache cache = DataCache.getInstance();
+                cache.topLeft = "home";
+            }
+        });
+
+        topLeftAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+//TODO fix bugs when no amount is entered and when no team is selected
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int amountEntered;
+                System.out.println("debug");
+                if(!editable.toString().equals("")) {
+                    amountEntered = Integer.parseInt(topLeftAmount.getText().toString());
+                }
+                else{
+                    amountEntered = 0;
+                }
+                int odds;
+                DataCache cache = DataCache.getInstance();
+                if(cache.topLeft != null){
+                    if(cache.topLeft.equals("home")){
+                        odds = Integer.parseInt(topLeftHomeOdds.getText().toString());
+                        if(amountEntered > 0){
+                            if(odds > 0){
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                topLeftWinnings.setText(winnings);
+                            }
+                            else{
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                topLeftWinnings.setText(winnings);
+                            }
+                        }
+                        else{
+                            topLeftWinnings.setText("Enter Wager");
+                        }
+
+                    }
+                    else if(cache.topLeft.equals("away")){
+                        odds = Integer.parseInt(topLeftAwayOdds.getText().toString());
+                        if(amountEntered > 0){
+                            if(odds > 0){
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                topLeftWinnings.setText(winnings);
+                            }
+                            else{
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                topLeftWinnings.setText(winnings);
+                            }
+                        }
+                        else{
+                            topLeftWinnings.setText("Enter Wager");
+                        }
+                    }
+                }
+                else{
+                    topLeftWinnings.setText("Choose Team");
+                }
+            }
+        });
+
+
+        topRightAwayTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                topRightAwayTeam.setBackgroundResource(R.drawable.customborderdark);
+                topRightAwayTeam.setPadding(14,14,14,14);
+                topRightHomeTeam.setBackgroundResource(R.drawable.customborderred);
+                topRightHomeTeam.setPadding(14,14,14,14);
+                DataCache cache = DataCache.getInstance();
+                cache.topRight = "away";
+            }
+        });
+
+        topRightHomeTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                topRightAwayTeam.setBackgroundResource(R.drawable.customborderred);
+                topRightAwayTeam.setPadding(14,14,14,14);
+                topRightHomeTeam.setBackgroundResource(R.drawable.customborderdark);
+                topRightHomeTeam.setPadding(14,14,14,14);
+                DataCache cache = DataCache.getInstance();
+                cache.topRight = "home";
+            }
+        });
+
+        topRightAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            //TODO fix bugs when no amount is entered and when no team is selected
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int amountEntered;
+                System.out.println("debug");
+                if(!editable.toString().equals("")) {
+                    amountEntered = Integer.parseInt(topRightAmount.getText().toString());
+                }
+                else{
+                    amountEntered = 0;
+                }
+                int odds;
+                DataCache cache = DataCache.getInstance();
+                if(cache.topRight != null){
+                    if(cache.topRight.equals("home")){
+                        odds = Integer.parseInt(topRightHomeOdds.getText().toString());
+                        if(amountEntered > 0){
+                            if(odds > 0){
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                topRightWinnings.setText(winnings);
+                            }
+                            else{
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                topRightWinnings.setText(winnings);
+                            }
+                        }
+                        else{
+                            topRightWinnings.setText("Enter Wager");
+                        }
+
+                    }
+                    else if(cache.topRight.equals("away")){
+                        odds = Integer.parseInt(topRightAwayOdds.getText().toString());
+                        if(amountEntered > 0){
+                            if(odds > 0){
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                topRightWinnings.setText(winnings);
+                            }
+                            else{
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                topRightWinnings.setText(winnings);
+                            }
+                        }
+                        else{
+                            topRightWinnings.setText("Enter Wager");
+                        }
+                    }
+                }
+                else{
+                    topRightWinnings.setText("Choose Team");
+                }
+            }
+        });
+
+
+        bottomLeftAwayTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomLeftAwayTeam.setBackgroundResource(R.drawable.customborderdark);
+                bottomLeftAwayTeam.setPadding(14,14,14,14);
+                bottomLeftHomeTeam.setBackgroundResource(R.drawable.customborderred);
+                bottomLeftHomeTeam.setPadding(14,14,14,14);
+                DataCache cache = DataCache.getInstance();
+                cache.bottomLeft = "away";
+            }
+        });
+
+        bottomLeftHomeTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomLeftAwayTeam.setBackgroundResource(R.drawable.customborderred);
+                bottomLeftAwayTeam.setPadding(14,14,14,14);
+                bottomLeftHomeTeam.setBackgroundResource(R.drawable.customborderdark);
+                bottomLeftHomeTeam.setPadding(14,14,14,14);
+                DataCache cache = DataCache.getInstance();
+                cache.bottomLeft = "home";
+            }
+        });
+
+        bottomLeftAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            //TODO fix bugs when no amount is entered and when no team is selected
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int amountEntered;
+                System.out.println("debug");
+                if(!editable.toString().equals("")) {
+                    amountEntered = Integer.parseInt(bottomLeftAmount.getText().toString());
+                }
+                else{
+                    amountEntered = 0;
+                }
+                int odds;
+                DataCache cache = DataCache.getInstance();
+                if(cache.bottomLeft != null){
+                    if(cache.bottomLeft.equals("home")){
+                        odds = Integer.parseInt(bottomLeftHomeOdds.getText().toString());
+                        if(amountEntered > 0){
+                            if(odds > 0){
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                bottomLeftWinnings.setText(winnings);
+                            }
+                            else{
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                bottomLeftWinnings.setText(winnings);
+                            }
+                        }
+                        else{
+                            bottomLeftWinnings.setText("Enter Wager");
+                        }
+
+                    }
+                    else if(cache.bottomLeft.equals("away")){
+                        odds = Integer.parseInt(bottomLeftAwayOdds.getText().toString());
+                        if(amountEntered > 0){
+                            if(odds > 0){
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                bottomLeftWinnings.setText(winnings);
+                            }
+                            else{
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                bottomLeftWinnings.setText(winnings);
+                            }
+                        }
+                        else{
+                            bottomLeftWinnings.setText("Enter Wager");
+                        }
+                    }
+                }
+                else{
+                    bottomLeftWinnings.setText("Choose Team");
+                }
+            }
+        });
+
+
+        bottomRightAwayTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomRightAwayTeam.setBackgroundResource(R.drawable.customborderdark);
+                bottomRightAwayTeam.setPadding(14,14,14,14);
+                bottomRightHomeTeam.setBackgroundResource(R.drawable.customborderred);
+                bottomRightHomeTeam.setPadding(14,14,14,14);
+                DataCache cache = DataCache.getInstance();
+                cache.bottomRight = "away";
+            }
+        });
+
+        bottomRightHomeTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomRightAwayTeam.setBackgroundResource(R.drawable.customborderred);
+                bottomRightAwayTeam.setPadding(14,14,14,14);
+                bottomRightHomeTeam.setBackgroundResource(R.drawable.customborderdark);
+                bottomRightHomeTeam.setPadding(14,14,14,14);
+                DataCache cache = DataCache.getInstance();
+                cache.bottomRight = "home";
+            }
+        });
+
+        bottomRightAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            //TODO fix bugs when no amount is entered and when no team is selected
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int amountEntered;
+                System.out.println("debug");
+                if(!editable.toString().equals("")) {
+                    amountEntered = Integer.parseInt(bottomRightAmount.getText().toString());
+                }
+                else{
+                    amountEntered = 0;
+                }
+                int odds;
+                DataCache cache = DataCache.getInstance();
+                if(cache.bottomRight != null){
+                    if(cache.bottomRight.equals("home")){
+                        odds = Integer.parseInt(bottomRightHomeOdds.getText().toString());
+                        if(amountEntered > 0){
+                            if(odds > 0){
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                bottomRightWinnings.setText(winnings);
+                            }
+                            else{
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                bottomRightWinnings.setText(winnings);
+                            }
+                        }
+                        else{
+                            bottomRightWinnings.setText("Enter Wager");
+                        }
+
+                    }
+                    else if(cache.bottomRight.equals("away")){
+                        odds = Integer.parseInt(bottomRightAwayOdds.getText().toString());
+                        if(amountEntered > 0){
+                            if(odds > 0){
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                bottomRightWinnings.setText(winnings);
+                            }
+                            else{
+                                String winnings = calculateWinnings(odds, amountEntered);
+                                bottomRightWinnings.setText(winnings);
+                            }
+                        }
+                        else{
+                            bottomRightWinnings.setText("Enter Wager");
+                        }
+                    }
+                }
+                else{
+                    bottomRightWinnings.setText("Choose Team");
+                }
+            }
+        });
+
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Bet newBet = new Bet(teamTaken.getText().toString(), Integer.parseInt(teamTakenOdds.getText().toString()), teamAvoided.getText().toString(),
-                        Integer.parseInt(teamAvoidedOdds.getText().toString()), Integer.parseInt(amountBet.getText().toString()), bookmakers.getSelectedItem().toString());
-
                 DataCache cache = DataCache.getInstance();
-                cache.betList.add(newBet);
 
-                teamTaken.setText("");
-                teamTakenOdds.setText("");
-                teamAvoided.setText("");
-                teamAvoidedOdds.setText("");
-                amountBet.setText("");
-                bookmakers.setSelection(0);
-                adapter.notifyDataSetChanged();
+
+                if(cache.topLeft != null && !topLeftAmount.getText().toString().equals("")){
+                    if(cache.topLeft.equals("home")){
+                        String debug = topLeftWinnings.getText().toString();
+                        int test = Integer.parseInt(topLeftWinnings.getText().toString());
+                        Bet newBet = new Bet(topLeftHomeTeam.getText().toString(), Integer.parseInt(topLeftHomeOdds.getText().toString()), topLeftAwayTeam.getText().toString(),
+                                Integer.parseInt(topLeftAwayOdds.getText().toString()), Integer.parseInt(topLeftAmount.getText().toString()), Integer.parseInt(topLeftWinnings.getText().toString()));
+                        cache.betList.add(newBet);
+                        cache.topLeft="submitted";
+
+                        topLeftAwayTeam.setBackgroundResource(R.drawable.customborderlight);
+                        topLeftAwayTeam.setPadding(14,14,14,14);
+                        topLeftHomeTeam.setBackgroundResource(R.drawable.customborderlight);
+                        topLeftHomeTeam.setPadding(14,14,14,14);
+                        topLeftAmount.setText("");
+                        topLeftWinnings.setText("");
+
+                    }
+                    else if(cache.topLeft.equals("away")){
+                        Bet newBet = new Bet(topLeftAwayTeam.getText().toString(), Integer.parseInt(topLeftAwayOdds.getText().toString()), topLeftHomeTeam.getText().toString(),
+                                Integer.parseInt(topLeftHomeOdds.getText().toString()), Integer.parseInt(topLeftAmount.getText().toString()),Integer.parseInt(topLeftWinnings.getText().toString()));
+                        cache.betList.add(newBet);
+                        cache.topLeft="submitted";
+
+                        topLeftAwayTeam.setBackgroundResource(R.drawable.customborderlight);
+                        topLeftAwayTeam.setPadding(14,14,14,14);
+                        topLeftHomeTeam.setBackgroundResource(R.drawable.customborderlight);
+                        topLeftHomeTeam.setPadding(14,14,14,14);
+                        topLeftAmount.setText("");
+                        topLeftWinnings.setText("");
+                    }
+                }
+
+
+                if(cache.topRight != null && !topRightAmount.getText().toString().equals("")){
+                    if(cache.topRight.equals("home")){
+                        Bet newBet = new Bet(topRightHomeTeam.getText().toString(), Integer.parseInt(topRightHomeOdds.getText().toString()), topRightAwayTeam.getText().toString(),
+                                Integer.parseInt(topRightAwayOdds.getText().toString()), Integer.parseInt(topRightAmount.getText().toString()),Integer.parseInt(topRightWinnings.getText().toString()));
+                        cache.betList.add(newBet);
+                        cache.topRight="submitted";
+
+                        topRightAwayTeam.setBackgroundResource(R.drawable.customborderlight);
+                        topRightAwayTeam.setPadding(14,14,14,14);
+                        topRightHomeTeam.setBackgroundResource(R.drawable.customborderlight);
+                        topRightHomeTeam.setPadding(14,14,14,14);
+                        topRightAmount.setText("");
+                        topRightWinnings.setText("");
+                    }
+                    else if(cache.topRight.equals("away")){
+                        Bet newBet = new Bet(topRightAwayTeam.getText().toString(), Integer.parseInt(topRightAwayOdds.getText().toString()), topRightHomeTeam.getText().toString(),
+                                Integer.parseInt(topRightHomeOdds.getText().toString()), Integer.parseInt(topRightAmount.getText().toString()),Integer.parseInt(topRightWinnings.getText().toString()));
+                        cache.betList.add(newBet);
+                        cache.topRight="submitted";
+
+                        topRightAwayTeam.setBackgroundResource(R.drawable.customborderlight);
+                        topRightAwayTeam.setPadding(14,14,14,14);
+                        topRightHomeTeam.setBackgroundResource(R.drawable.customborderlight);
+                        topRightHomeTeam.setPadding(14,14,14,14);
+                        topRightAmount.setText("");
+                        topRightWinnings.setText("");
+                    }
+                }
+
+                if(cache.bottomLeft != null && !bottomLeftAmount.getText().toString().equals("")){
+                    if(cache.bottomLeft.equals("home")){
+                        Bet newBet = new Bet(bottomLeftHomeTeam.getText().toString(), Integer.parseInt(bottomLeftHomeOdds.getText().toString()), bottomLeftAwayTeam.getText().toString(),
+                                Integer.parseInt(bottomLeftAwayOdds.getText().toString()), Integer.parseInt(bottomLeftAmount.getText().toString()),Integer.parseInt(bottomLeftWinnings.getText().toString()));
+                        cache.betList.add(newBet);
+                        cache.bottomLeft="submitted";
+
+                        bottomLeftAwayTeam.setBackgroundResource(R.drawable.customborderlight);
+                        bottomLeftAwayTeam.setPadding(14,14,14,14);
+                        bottomLeftHomeTeam.setBackgroundResource(R.drawable.customborderlight);
+                        bottomLeftHomeTeam.setPadding(14,14,14,14);
+                        bottomLeftAmount.setText("");
+                        bottomLeftWinnings.setText("");
+                    }
+                    else if(cache.bottomLeft.equals("away")){
+                        Bet newBet = new Bet(bottomLeftAwayTeam.getText().toString(), Integer.parseInt(bottomLeftAwayOdds.getText().toString()), bottomLeftHomeTeam.getText().toString(),
+                                Integer.parseInt(bottomLeftHomeOdds.getText().toString()), Integer.parseInt(bottomLeftAmount.getText().toString()),Integer.parseInt(bottomLeftWinnings.getText().toString()));
+                        cache.betList.add(newBet);
+                        cache.bottomLeft="submitted";
+
+                        bottomLeftAwayTeam.setBackgroundResource(R.drawable.customborderlight);
+                        bottomLeftAwayTeam.setPadding(14,14,14,14);
+                        bottomLeftHomeTeam.setBackgroundResource(R.drawable.customborderlight);
+                        bottomLeftHomeTeam.setPadding(14,14,14,14);
+                        bottomLeftAmount.setText("");
+                        bottomLeftWinnings.setText("");
+                    }
+                }
+
+                if(cache.bottomRight != null && !bottomRightAmount.getText().toString().equals("")){
+                    if(cache.bottomRight.equals("home")){
+                        Bet newBet = new Bet(bottomRightHomeTeam.getText().toString(), Integer.parseInt(bottomRightHomeOdds.getText().toString()), bottomRightAwayTeam.getText().toString(),
+                                Integer.parseInt(bottomRightAwayOdds.getText().toString()), Integer.parseInt(bottomRightAmount.getText().toString()),Integer.parseInt(bottomRightWinnings.getText().toString()));
+                        cache.betList.add(newBet);
+                        cache.bottomRight="submitted";
+
+                        bottomRightAwayTeam.setBackgroundResource(R.drawable.customborderlight);
+                        bottomRightAwayTeam.setPadding(14,14,14,14);
+                        bottomRightHomeTeam.setBackgroundResource(R.drawable.customborderlight);
+                        bottomRightHomeTeam.setPadding(14,14,14,14);
+                        bottomRightAmount.setText("");
+                        bottomRightWinnings.setText("");
+                    }
+                    else if(cache.bottomRight.equals("away")){
+                        Bet newBet = new Bet(bottomRightAwayTeam.getText().toString(), Integer.parseInt(bottomRightAwayOdds.getText().toString()), bottomRightHomeTeam.getText().toString(),
+                                Integer.parseInt(bottomRightHomeOdds.getText().toString()), Integer.parseInt(bottomRightAmount.getText().toString()),Integer.parseInt(bottomRightWinnings.getText().toString()));
+                        cache.betList.add(newBet);
+                        cache.bottomRight="submitted";
+
+                        bottomRightAwayTeam.setBackgroundResource(R.drawable.customborderlight);
+                        bottomRightAwayTeam.setPadding(14,14,14,14);
+                        bottomRightHomeTeam.setBackgroundResource(R.drawable.customborderlight);
+                        bottomRightHomeTeam.setPadding(14,14,14,14);
+                        bottomRightAmount.setText("");
+                        bottomRightWinnings.setText("");
+                    }
+                }
+
+
+
+
+
+
+
+
 
             }
         });
 
-        topInfoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createOddsPopup();
-            }
-        });
 
-        bottomInfoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createOddsPopup();
-            }
-        });
 
+    }
+
+
+    public String calculateWinnings(int odds, int amountEntered){
+        DecimalFormat df = new DecimalFormat("#");
+        df.setRoundingMode(RoundingMode.CEILING);
+        if(odds > 0){
+            float winnings = (float) odds / 100 *amountEntered;
+            return String.valueOf(df.format(winnings));
+        }
+        else{
+            odds = Math.abs(odds);
+            float winnings = 100 / (float) odds * amountEntered;
+            return String.valueOf(df.format(winnings));
+        }
     }
 
 

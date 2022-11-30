@@ -5,6 +5,10 @@ import java.util.List;
 
 public class DataCache {
     ArrayList<Bet> betList = new ArrayList<>();
+    String topLeft;
+    String topRight;
+    String bottomLeft;
+    String bottomRight;
     String username;
     private static DataCache instance;
 

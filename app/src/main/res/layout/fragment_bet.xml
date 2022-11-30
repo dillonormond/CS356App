@@ -11,22 +11,22 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="All Your Bets In One Place"
-        android:textColor="@color/white"
-        android:textSize="35dp"
-        android:gravity="center"
-        android:textStyle="bold"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="25dp"
-        android:background="@drawable/rounded_edittext"/>
+        android:background="@drawable/rounded_edittext"
+        android:gravity="center"
+        android:text="No-Stake Bets"
+        android:textColor="@color/white"
+        android:textSize="35dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/betSubtext"
         android:layout_below="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="The easiest way to keep track of your bets and bankroll across all betting apps"
+        android:text="The easiest way to have all the fun of betting, with none of the stress"
         android:gravity="center"
         android:textSize="16dp"
         android:layout_marginBottom="24dp"
@@ -34,151 +34,546 @@
         android:textStyle="italic"
         />
 
-    <LinearLayout
-        android:id="@+id/betForm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/betSubtext"
-        android:background="@drawable/layout_betform"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/teamTaken"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:drawableLeft="@drawable/ic_baseline_check_box_24"
-                android:drawablePadding="10dp"
-                android:hint="Enter the team you bet on"
-                android:padding="20dp"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center_vertical">
-                    <EditText
-                        android:id="@+id/teamTakenOdds"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        android:drawablePadding="5dp"
-                        android:hint="Odds"
-                        android:inputType="numberSigned"
-                        android:padding="20dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black" />
-
-                    <ImageView
-                        android:id="@+id/topInfoButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:src="@drawable/ic_baseline_info_24"/>
-
-                </LinearLayout>
-
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-
-            <EditText
-                android:id="@+id/teamAvoided"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/teamTaken"
-                android:layout_margin="5dp"
-                android:drawableLeft="@drawable/ic_baseline_cancel_24"
-                android:drawablePadding="10dp"
-                android:hint="Enter the oppposing team"
-                android:padding="20dp"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center_vertical">
-                <EditText
-                    android:id="@+id/teamAvoidedOdds"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:drawablePadding="5dp"
-                    android:hint="Odds"
-                    android:inputType="numberSigned"
-                    android:padding="20dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/black" />
-
-                <ImageView
-                    android:id="@+id/bottomInfoButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:src="@drawable/ic_baseline_info_24"/>
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/amountBet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/teamTaken"
-            android:layout_margin="5dp"
-            android:drawableLeft="@drawable/ic_baseline_attach_money_24"
-            android:drawablePadding="10dp"
-            android:hint="Amount Bet"
-            android:inputType="numberSigned"
-            android:padding="20dp"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textColorHint="@color/black" />
-
-        <Spinner
-            android:id="@+id/bookmakers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:padding="20dp" />
-
-
-    </LinearLayout>
-
-
-    <com.google.android.material.button.MaterialButton
-
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/submitbutton"
-        android:layout_below="@+id/betForm"
-        android:text="Submit"
-        android:backgroundTint="#23395d"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="40dp"
-        android:textSize="25dp"
-        />
+        android:layout_below="@+id/betSubtext">
+
+        <LinearLayout
+            android:id="@+id/topLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/customeborder"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/topLeftAwayTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customborderlight"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="Jazz"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/topLeftAwayOdds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:text="+150"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/topLeftHomeTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customborderlight"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="Knicks"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/topLeftHomeOdds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:text="-200"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/topLeftAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Amount to bet       "
+                android:inputType="number" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To Win:" />
+
+                <TextView
+                    android:id="@+id/topLeftWinnings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="20dp"
+                    android:textStyle="italic" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/topLeftInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_baseline_info_24" />
+
+        <LinearLayout
+            android:id="@+id/topRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@+id/topLeft"
+            android:background="@drawable/customeborder"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/topRightAwayTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customborderlight"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="Lakers"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/topRightAwayOdds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:text="+200"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/topRightHomeTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customborderlight"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="Warriors"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/topRightHomeOdds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:text="-300"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/topRightAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Amount to bet       "
+                android:inputType="number" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To Win:" />
+
+                <TextView
+                    android:id="@+id/topRightWinnings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="20dp"
+                    android:textStyle="italic" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/topLeft"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/customeborder"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/bottomLeftAwayTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customborderlight"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="Heat"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/bottomLeftAwayOdds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:text="-175"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/bottomLeftHomeTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customborderlight"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="Suns"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/bottomLeftHomeOdds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:text="+125"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/bottomLeftAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Amount to bet       "
+                android:inputType="number" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To Win:" />
+
+                <TextView
+                    android:id="@+id/bottomLeftWinnings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="20dp"
+                    android:textStyle="italic" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/bottomRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/topRight"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@+id/bottomLeft"
+            android:background="@drawable/customeborder"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/bottomRightAwayTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customborderlight"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="Nuggets"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/bottomRightAwayOdds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:text="-110"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/bottomRightHomeTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customborderlight"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="Spurs"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/bottomRightHomeOdds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:text="-110"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/bottomRightAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Amount to bet       "
+                android:inputType="number" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To Win:" />
+
+                <TextView
+                    android:id="@+id/bottomRightWinnings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="20dp"
+                    android:textStyle="italic" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+
+            android:id="@+id/submitbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bottomLeft"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:backgroundTint="#23395d"
+            android:text="Submit"
+            android:textSize="25dp" />
+
+    </RelativeLayout>
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/betForm"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/betSubtext"-->
+<!--        android:background="@drawable/layout_betform"-->
+<!--        android:gravity="center_horizontal"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/teamTaken"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:drawableLeft="@drawable/ic_baseline_check_box_24"-->
+<!--                android:drawablePadding="10dp"-->
+<!--                android:hint="Enter the team you bet on"-->
+<!--                android:padding="20dp"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textColorHint="@color/black" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:layout_gravity="center_vertical">-->
+<!--                    <EditText-->
+<!--                        android:id="@+id/teamTakenOdds"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_margin="5dp"-->
+<!--                        android:drawablePadding="5dp"-->
+<!--                        android:hint="Odds"-->
+<!--                        android:inputType="numberSigned"-->
+<!--                        android:padding="20dp"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textColorHint="@color/black" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/topInfoButton"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:src="@drawable/ic_baseline_info_24"/>-->
+
+<!--                </LinearLayout>-->
+
+
+
+<!--        </LinearLayout>-->
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            >-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/teamAvoided"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/teamTaken"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:drawableLeft="@drawable/ic_baseline_cancel_24"-->
+<!--                android:drawablePadding="10dp"-->
+<!--                android:hint="Enter the oppposing team"-->
+<!--                android:padding="20dp"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textColorHint="@color/black" />-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_gravity="center_vertical">-->
+<!--                <EditText-->
+<!--                    android:id="@+id/teamAvoidedOdds"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:drawablePadding="5dp"-->
+<!--                    android:hint="Odds"-->
+<!--                    android:inputType="numberSigned"-->
+<!--                    android:padding="20dp"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textColorHint="@color/black" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/bottomInfoButton"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:src="@drawable/ic_baseline_info_24"/>-->
+
+<!--            </LinearLayout>-->
+<!--        </LinearLayout>-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/amountBet"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/teamTaken"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:drawableLeft="@drawable/ic_baseline_attach_money_24"-->
+<!--            android:drawablePadding="10dp"-->
+<!--            android:hint="Amount Bet"-->
+<!--            android:inputType="numberSigned"-->
+<!--            android:padding="20dp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="16sp"-->
+<!--            android:textColorHint="@color/black" />-->
+
+<!--        <Spinner-->
+<!--            android:id="@+id/bookmakers"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:padding="20dp" />-->
+
+
+<!--    </LinearLayout>-->
+
+
+<!--    <com.google.android.material.button.MaterialButton-->
+
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/submitbutton"-->
+<!--        android:layout_below="@+id/betForm"-->
+<!--        android:text="Submit"-->
+<!--        android:backgroundTint="#23395d"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_margin="40dp"-->
+<!--        android:textSize="25dp"-->
+<!--        />-->
 
 
 
