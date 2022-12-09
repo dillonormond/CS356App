@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -69,7 +70,22 @@ public class ProfileFragment extends Fragment {
         recyclerView = view.findViewById(R.id.betListView);
         DataCache cache = DataCache.getInstance();
         betList = cache.betList;
+        TextView sim = getView().findViewById(R.id.simulate);
+        TextView clear = getView().findViewById(R.id.clear);
         setAdapter();
+        sim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cache.winningTeams.add("Jazz");
+                cache.winningTeams.add("Warriors");
+                cache.winningTeams.add("Heat");
+                cache.winningTeams.add("Spurs");
+                cache.simulated = true;
+                setAdapter();
+            }
+        });
+
+
     }
 
 

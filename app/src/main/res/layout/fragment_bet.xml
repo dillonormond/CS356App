@@ -8,6 +8,33 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/bankRollHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/customborderlight"
+        android:gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:layout_alignParentLeft="true"
+        android:text="Bank Total: $500"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/customborderlight"
+        android:foreground="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:text="Clear Bets"
+        android:textSize="18dp" />
+
+    <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,6 +60,8 @@
         android:textColor="@color/black"
         android:textStyle="italic"
         />
+
+
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -422,10 +451,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/bottomLeft"
             android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="#23395d"
             android:text="Submit"
             android:textSize="25dp" />
+
 
     </RelativeLayout>
 

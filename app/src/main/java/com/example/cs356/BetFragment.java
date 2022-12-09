@@ -26,6 +26,8 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,7 +35,6 @@ import java.text.DecimalFormat;
  * create an instance of this fragment.
  */
 public class BetFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -112,11 +113,18 @@ public class BetFragment extends Fragment implements AdapterView.OnItemSelectedL
         TextView bottomRightHomeOdds = getView().findViewById(R.id.bottomRightHomeOdds);
         TextView bottomRightAwayTeam = getView().findViewById(R.id.bottomRightAwayTeam);
         TextView bottomRightAwayOdds = getView().findViewById(R.id.bottomRightAwayOdds);
-        TextView bottomRightWinnings = getView().findViewById(R.id.bottomRightWinnings);
         EditText bottomRightAmount = getView().findViewById(R.id.bottomRightAmount);
+        TextView bottomRightWinnings = getView().findViewById(R.id.bottomRightWinnings);
+
+        TextView clearButton = getView().findViewById(R.id.clear);
+
+        TextView bankRoll = getView().findViewById(R.id.bankRollHome);
+        DataCache cache = DataCache.getInstance();
+        String bankRollString = "Bank Total: $" + Integer.toString(cache.BANK_ROLL_VALUE);
+        bankRoll.setText(bankRollString);
+
 
         MaterialButton submit = getView().findViewById(R.id.submitbutton);
-
         ImageView infoButton = getView().findViewById(R.id.topLeftInfo);
 
 
@@ -124,6 +132,15 @@ public class BetFragment extends Fragment implements AdapterView.OnItemSelectedL
             @Override
             public void onClick(View view) {
                 createOddsPopup();
+            }
+        });
+
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cache.betList = new ArrayList<>();
+                cache.winningTeams = new HashSet<>();
+
             }
         });
 
@@ -490,9 +507,11 @@ public class BetFragment extends Fragment implements AdapterView.OnItemSelectedL
             public void onClick(View view) {
 
                 DataCache cache = DataCache.getInstance();
+                int runningTotal = 0;
 
 
                 if(cache.topLeft != null && !topLeftAmount.getText().toString().equals("")){
+                    runningTotal += Integer.parseInt(topLeftAmount.getText().toString());
                     if(cache.topLeft.equals("home")){
                         String debug = topLeftWinnings.getText().toString();
                         int test = Integer.parseInt(topLeftWinnings.getText().toString());
@@ -526,6 +545,7 @@ public class BetFragment extends Fragment implements AdapterView.OnItemSelectedL
 
 
                 if(cache.topRight != null && !topRightAmount.getText().toString().equals("")){
+                    runningTotal += Integer.parseInt(topRightAmount.getText().toString());
                     if(cache.topRight.equals("home")){
                         Bet newBet = new Bet(topRightHomeTeam.getText().toString(), Integer.parseInt(topRightHomeOdds.getText().toString()), topRightAwayTeam.getText().toString(),
                                 Integer.parseInt(topRightAwayOdds.getText().toString()), Integer.parseInt(topRightAmount.getText().toString()),Integer.parseInt(topRightWinnings.getText().toString()));
@@ -555,6 +575,7 @@ public class BetFragment extends Fragment implements AdapterView.OnItemSelectedL
                 }
 
                 if(cache.bottomLeft != null && !bottomLeftAmount.getText().toString().equals("")){
+                    runningTotal += Integer.parseInt(bottomLeftAmount.getText().toString());
                     if(cache.bottomLeft.equals("home")){
                         Bet newBet = new Bet(bottomLeftHomeTeam.getText().toString(), Integer.parseInt(bottomLeftHomeOdds.getText().toString()), bottomLeftAwayTeam.getText().toString(),
                                 Integer.parseInt(bottomLeftAwayOdds.getText().toString()), Integer.parseInt(bottomLeftAmount.getText().toString()),Integer.parseInt(bottomLeftWinnings.getText().toString()));
@@ -584,6 +605,7 @@ public class BetFragment extends Fragment implements AdapterView.OnItemSelectedL
                 }
 
                 if(cache.bottomRight != null && !bottomRightAmount.getText().toString().equals("")){
+                    runningTotal += Integer.parseInt(bottomRightAmount.getText().toString());
                     if(cache.bottomRight.equals("home")){
                         Bet newBet = new Bet(bottomRightHomeTeam.getText().toString(), Integer.parseInt(bottomRightHomeOdds.getText().toString()), bottomRightAwayTeam.getText().toString(),
                                 Integer.parseInt(bottomRightAwayOdds.getText().toString()), Integer.parseInt(bottomRightAmount.getText().toString()),Integer.parseInt(bottomRightWinnings.getText().toString()));
@@ -611,16 +633,10 @@ public class BetFragment extends Fragment implements AdapterView.OnItemSelectedL
                         bottomRightWinnings.setText("");
                     }
                 }
-
-
-
-
-
-
-
-
-
+                cache.BANK_ROLL_VALUE = cache.BANK_ROLL_VALUE - runningTotal;
+                bankRoll.setText("Bank Total: $" + Integer.toString(cache.BANK_ROLL_VALUE));
             }
+
         });
 
 
@@ -633,11 +649,13 @@ public class BetFragment extends Fragment implements AdapterView.OnItemSelectedL
         df.setRoundingMode(RoundingMode.CEILING);
         if(odds > 0){
             float winnings = (float) odds / 100 *amountEntered;
+            winnings = winnings + amountEntered;
             return String.valueOf(df.format(winnings));
         }
         else{
             odds = Math.abs(odds);
             float winnings = 100 / (float) odds * amountEntered;
+            winnings = winnings + amountEntered;
             return String.valueOf(df.format(winnings));
         }
     }
