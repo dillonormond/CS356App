@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 //                if(username.getText().toString().equals("John123") && password.getText().toString().equals("password")){
                     Toast.makeText(MainActivity.this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
-                    Intent myIntent = new Intent(MainActivity.this, BetHomePage.class);
+                    Intent myIntent = new Intent(MainActivity.this, SplashScreen.class);
                     MainActivity.this.startActivity(myIntent);
 //                }
 //                else{
